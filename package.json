@@ -1,15 +1,15 @@
 {
-  "name": "todos_app.github.io",
+  "name": "todos",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "build": "npm i && next build",
     "start": "next start",
+    "dev": "next dev",
     "types": "tsc --noEmit",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "check": "yarn run types && yarn run lint && yarn run prettier"
+    "check": "npm run types && npm run lint && npm run prettier"
   },
   "author": "Evgenia Zaitseva",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "react-i18next": "^15.0.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "@types/node": "^20.9.1",
     "@types/react": "^18.3.11",
     "@typescript-eslint/eslint-plugin": "^8.9.0",
@@ -33,7 +34,7 @@
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
+    "sass": "^1.80.6",
     "typescript": "5.5.4"
-  },
-  "packageManager": "yarn@4.2.2"
+  }
 }

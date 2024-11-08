@@ -1,11 +1,10 @@
-import {FC} from "react";
-import {AppProps} from "next/app";
-import "./index.css"
+import { FC } from "react";
+import { AppProps } from "next/app";
 import I18nProvider from "src/appFsd/i18n/i18nProvider";
 
-const WrappedApp: FC<AppProps> = ({ Component, pageProps  }) => (
+const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => (
   <I18nProvider>
-    <Component {...pageProps}/>
+    <Component {...pageProps} />
   </I18nProvider>
 );
 
