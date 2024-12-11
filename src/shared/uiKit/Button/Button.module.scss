@@ -1,0 +1,15 @@
+.btn {
+  background-color: #FFFFFF;
+  border: none;
+  padding: 5px;
+  font-family: $font-roboto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btnActive {
+  border: 1px solid #EEEEEE;
+  border-radius: 5px;
+}

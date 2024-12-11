@@ -1,3 +1,11 @@
 {
-  "lang": "en"
+  "lang": "en",
+  "homePage": {
+    "tasks": {
+      "all": "All",
+      "active": "Active",
+      "completed": "Completed",
+      "clearCompleted" : "Clear completed"
+    }
+  }
 }

@@ -14,7 +14,13 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   lng: "ru",
-  fallbackNS: ["translation_ru", "translation_en"],
+  fallbackNS: ["translation_ru"],
+  resources
+});
+
+i18n.use(initReactI18next).init({
+  lng: "en",
+  fallbackNS: ["translation_en"],
   resources
 });
 

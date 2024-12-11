@@ -1,0 +1,72 @@
+.content {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  border: 1px rgba(0, 0, 0, 0.2) solid;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+  0 10px 0 -5px #f6f6f6,
+  0 10px 1px -4px rgba(0, 0, 0, 0.2),
+  0 20px 0 -10px #f6f6f6,
+  0 20px 1px -9px rgba(0, 0, 0, 0.2);
+}
+
+.btnShow {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  bottom: 0;
+  transform: translateY(-50%);
+}
+
+.btnShowActive {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.input {
+  position: relative;
+  padding: 0 0 0 50px;
+  border: 1px solid #EEEEEE;
+
+  input[type='text'] {
+    width: 95%;
+    height: 60px;
+    outline: none;
+    border: none;
+    font-family: $font-roboto;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 20px;
+  }
+
+  input::placeholder {
+    color: #ECECEC;
+    font-family: $font-roboto;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 20px;
+  }
+}
+
+.controlPanel {
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $font-roboto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 15px;
+}
+
+.filter {
+  display: flex;
+  gap: 10px;
+}
