@@ -2,7 +2,7 @@
 const config = {
   useTabs: false,
   jsxSingleQuote: true,
-  singleQuote: true
+  singleQuote: true,
 };
 
 export default config;
