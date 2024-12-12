@@ -1,13 +1,15 @@
-import {ITask} from "src/entities/home/todo/Todo";
+import { ITask } from "src/feature/home/task/Task";
+import { ButtonType } from "src/feature/home/taskActionButton/TaskActionButton";
 
-export type buttonType = "all" | "active" | "completed" | "clearCompleted";
-
-export const filteredTasks = (activeButton: buttonType, tasks: ITask[]) => {
-    if (activeButton === "all") {
-        return tasks;
-    } else if (activeButton === "active") {
-        return tasks.filter((task) => !task.isDone);
-    } else if (activeButton === "completed") {
-        return tasks.filter((task) => task.isDone);
-    }
+export const filterTasks = (activeButton: ButtonType, tasks: ITask[]) => {
+  switch (activeButton) {
+    case "all":
+      return tasks;
+    case "active":
+      return tasks.filter((task) => !task.isDone);
+    case "completed":
+      return tasks.filter((task) => task.isDone);
+    default:
+      return;
+  }
 };

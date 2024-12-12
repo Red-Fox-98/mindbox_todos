@@ -5,23 +5,17 @@ import translation_en from "./en/translation.json";
 
 const resources = {
   ru: {
-    translation_ru
+    translation_ru,
   },
   en: {
-    translation_en
-  }
+    translation_en,
+  },
 };
 
 i18n.use(initReactI18next).init({
-  lng: "ru",
-  fallbackNS: ["translation_ru"],
-  resources
-});
-
-i18n.use(initReactI18next).init({
   lng: "en",
-  fallbackNS: ["translation_en"],
-  resources
+  fallbackNS: ["translation_ru", "translation_en"],
+  resources,
 });
 
 export default i18n;

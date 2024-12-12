@@ -1,78 +1,112 @@
-import React, {FC, useRef, useState} from "react";
-import Styles from "./Todos.module.scss"
+import React, { FC, useMemo, useRef, useState } from "react";
+import Styles from "./Todos.module.scss";
 import DownArrow from "src/shared/uiKit/icons/DownArrow";
-import Todo, {ITask} from "src/entities/home/todo/Todo";
-import Button from "src/shared/uiKit/Button/Button";
-import {buttonType, filteredTasks} from "src/widgets/home/todos/helper";
+import Task, { ITask } from "src/feature/home/task/Task";
 import clsx from "clsx";
+import { filterTasks } from "src/widgets/home/todos/helper";
+import TaskActionButton, {
+  ButtonType,
+} from "src/feature/home/taskActionButton/TaskActionButton";
 
 const Todos: FC = () => {
-    const [tasks, setTasks] = useState<ITask[]>([]);
-    const [taskInput, setTaskInput] = useState<string>("");
-    const [activeButton, setActiveButton] = useState<buttonType>("all");
-    const [isHidden, setHidden] = useState<boolean>(false);
-    const newId = useRef<number>(0);
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [taskInput, setTaskInput] = useState<string>("");
+  const [activeButton, setActiveButton] = useState<ButtonType>("all");
+  const [isHidden, setHidden] = useState<boolean>(false);
+  const newId = useRef<number>(0);
+  const filteredTasks = useMemo(
+    () => filterTasks(activeButton, tasks),
+    [activeButton, tasks],
+  );
+  const countActiveTasks = useMemo(() => filterTasks("active", tasks), [tasks]);
 
-    const taskEntry = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTaskInput(event.currentTarget.value);
+  const entryTask = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskInput(event.currentTarget.value);
+  };
+
+  const createTask = (key: string) => {
+    if (key !== "Enter") {
+      return;
     }
-
-    const taskCreation = (key: string) => {
-        if (key === 'Enter') {
-            const newTask: ITask = {
-                id: newId.current,
-                name: taskInput,
-                isDone: false
-            }
-            newId.current += 1;
-            setTaskInput("");
-            setTasks([...tasks, newTask]);
-        }
-    }
-
-    const changeTask = (newValue: ITask) => {
-        setTasks((prevState) => {
-            const newData = [...prevState];
-            const index = prevState.findIndex((task) => task.id === newValue.id);
-            if (index < 0) return prevState;
-            newData[index] = newValue;
-            return newData;
-        });
+    const newTask: ITask = {
+      id: newId.current,
+      name: taskInput,
+      isDone: false,
     };
+    newId.current += 1;
+    setTaskInput("");
+    setTasks([...tasks, newTask]);
+  };
 
-    const clearCompleted = () => {
-        setTasks(tasks.filter(task => !task.isDone));
-    }
+  const changeTask = (newValue: ITask) => {
+    setTasks((prevState) => {
+      const newData = [...prevState];
+      const index = prevState.findIndex((task) => task.id === newValue.id);
+      if (index < 0) return prevState;
+      newData[index] = newValue;
+      return newData;
+    });
+  };
 
-    const onClick = (nameBtn: buttonType) => {
-        setActiveButton(nameBtn);
-    }
+  const clearCompleted = () => {
+    setTasks(tasks.filter((task) => !task.isDone));
+  };
 
-    return (
-        <div className={Styles.content}>
-            <div className={Styles.input}>
-                <button onClick={() => setHidden(!isHidden)}
-                        className={clsx(Styles.btnShow, isHidden && Styles.btnShowActive)}><DownArrow/></button>
-                <input type={"text"} placeholder={"What needs to be done?"} value={taskInput}
-                       onChange={event => taskEntry(event)} onKeyDown={(event) => taskCreation(event.key)}/>
-            </div>
-            <div className={clsx(Styles.tasks)}>
-                {!isHidden && filteredTasks(activeButton, tasks)?.map((task) => <Todo key={task.id} data={task}
-                                                                                      changeTask={changeTask}/>)}
-            </div>
-            <div className={Styles.controlPanel}>
-                <p>{`${filteredTasks("active", tasks)?.length} items left`}</p>
-                <div className={Styles.filter}>
-                    <Button type={"all"} isActive={"all" === activeButton} onClick={onClick}/>
-                    <Button type={"active"} isActive={"active" === activeButton} onClick={onClick}/>
-                    <Button type={"completed"} isActive={"completed" === activeButton} onClick={onClick}/>
-                </div>
-                <div>
-                    <Button type={"clearCompleted"} clearCompleted={clearCompleted}/>
-                </div>
-            </div>
+  const onClick = (nameBtn: ButtonType) => {
+    setActiveButton(nameBtn);
+  };
+
+  return (
+    <div className={Styles.content}>
+      <div className={Styles.input}>
+        <button
+          onClick={() => setHidden(!isHidden)}
+          className={clsx(Styles.btnShow, isHidden && Styles.btnShowActive)}
+        >
+          <DownArrow />
+        </button>
+        <input
+          type={"text"}
+          placeholder={"What needs to be done?"}
+          value={taskInput}
+          onChange={(event) => entryTask(event)}
+          onKeyDown={(event) => createTask(event.key)}
+        />
+      </div>
+      <div className={clsx(Styles.tasks)}>
+        {!isHidden &&
+          filteredTasks?.map((task) => (
+            <Task key={task.id} data={task} changeTask={changeTask} />
+          ))}
+      </div>
+      <div className={Styles.controlPanel}>
+        <p>{`${countActiveTasks?.length} items left`}</p>
+        <div className={Styles.filter}>
+          <TaskActionButton
+            type={"all"}
+            isActive={"all" === activeButton}
+            onClick={onClick}
+          />
+          <TaskActionButton
+            type={"active"}
+            isActive={"active" === activeButton}
+            onClick={onClick}
+          />
+          <TaskActionButton
+            type={"completed"}
+            isActive={"completed" === activeButton}
+            onClick={onClick}
+          />
         </div>
-    )
+        <div>
+          <TaskActionButton
+            type={"clearCompleted"}
+            clearCompleted={clearCompleted}
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Todos;
