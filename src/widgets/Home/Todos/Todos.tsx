@@ -13,7 +13,7 @@ const Todos: FC = () => {
   const [isHidden, setHidden] = useState<boolean>(false);
   const newId = useRef<number>(0);
   const filteredTasks = useMemo(() => filterTasks(activeButton, tasks), [activeButton, tasks]);
-  const activeTasks = useMemo(() => filterTasks('active', tasks)?.length ?? 0, [tasks]);
+  const countActiveTasks = useMemo(() => filterTasks('active', tasks)?.length ?? 0, [tasks]);
 
   const entryTask = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskInput(event.currentTarget.value);
@@ -73,7 +73,7 @@ const Todos: FC = () => {
           filteredTasks?.map((task) => <Task key={task.id} data={task} changeTask={changeTask} />)}
       </div>
       <div className={Styles.controlPanel}>
-        <p>{`${activeTasks} items left`}</p>
+        <p>{`${countActiveTasks} items left`}</p>
         <div className={Styles.filter}>
           <TaskActionButton type={'all'} isActive={'all' === activeButton} onClick={onClick} />
           <TaskActionButton
