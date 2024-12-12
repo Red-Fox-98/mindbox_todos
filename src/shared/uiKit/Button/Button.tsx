@@ -1,6 +1,6 @@
-import { FC } from "react";
-import Styles from "./Button.module.scss";
-import clsx from "clsx";
+import { FC } from 'react';
+import Styles from './Button.module.scss';
+import clsx from 'clsx';
 
 interface ButtonProps {
   name: string;
@@ -10,10 +10,7 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({ name, isActive, onClick }) => {
   return (
-    <button
-      onClick={onClick}
-      className={clsx(Styles.btn, isActive && Styles.btnActive)}
-    >
+    <button onClick={onClick} className={clsx(Styles.btn, isActive && Styles.btnActive)}>
       {name}
     </button>
   );

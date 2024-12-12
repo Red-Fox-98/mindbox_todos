@@ -1,13 +1,13 @@
-import { ITask } from "src/feature/home/task/Task";
-import { ButtonType } from "src/feature/home/taskActionButton/TaskActionButton";
+import { ITask } from 'src/feature/Home/Task/Task';
+import { ButtonType } from 'src/feature/Home/TaskActionButton/TaskActionButton';
 
 export const filterTasks = (activeButton: ButtonType, tasks: ITask[]) => {
   switch (activeButton) {
-    case "all":
+    case 'all':
       return tasks;
-    case "active":
+    case 'active':
       return tasks.filter((task) => !task.isDone);
-    case "completed":
+    case 'completed':
       return tasks.filter((task) => task.isDone);
     default:
       return;

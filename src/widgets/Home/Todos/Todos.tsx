@@ -1,31 +1,26 @@
-import React, { FC, useMemo, useRef, useState } from "react";
-import Styles from "./Todos.module.scss";
-import DownArrow from "src/shared/uiKit/icons/DownArrow";
-import Task, { ITask } from "src/feature/home/task/Task";
-import clsx from "clsx";
-import { filterTasks } from "src/widgets/home/todos/helper";
-import TaskActionButton, {
-  ButtonType,
-} from "src/feature/home/taskActionButton/TaskActionButton";
+import React, { FC, useMemo, useRef, useState } from 'react';
+import Styles from './Todos.module.scss';
+import DownArrow from 'src/shared/uiKit/icons/DownArrow';
+import Task, { ITask } from 'src/feature/Home/Task/Task';
+import clsx from 'clsx';
+import { filterTasks } from 'src/widgets/Home/Todos/helper';
+import TaskActionButton, { ButtonType } from 'src/feature/Home/TaskActionButton/TaskActionButton';
 
 const Todos: FC = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
-  const [taskInput, setTaskInput] = useState<string>("");
-  const [activeButton, setActiveButton] = useState<ButtonType>("all");
+  const [taskInput, setTaskInput] = useState<string>('');
+  const [activeButton, setActiveButton] = useState<ButtonType>('all');
   const [isHidden, setHidden] = useState<boolean>(false);
   const newId = useRef<number>(0);
-  const filteredTasks = useMemo(
-    () => filterTasks(activeButton, tasks),
-    [activeButton, tasks],
-  );
-  const countActiveTasks = useMemo(() => filterTasks("active", tasks), [tasks]);
+  const filteredTasks = useMemo(() => filterTasks(activeButton, tasks), [activeButton, tasks]);
+  const activeTasks = useMemo(() => filterTasks('active', tasks)?.length ?? 0, [tasks]);
 
   const entryTask = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskInput(event.currentTarget.value);
   };
 
   const createTask = (key: string) => {
-    if (key !== "Enter") {
+    if (key !== 'Enter') {
       return;
     }
     const newTask: ITask = {
@@ -34,7 +29,7 @@ const Todos: FC = () => {
       isDone: false,
     };
     newId.current += 1;
-    setTaskInput("");
+    setTaskInput('');
     setTasks([...tasks, newTask]);
   };
 
@@ -66,8 +61,8 @@ const Todos: FC = () => {
           <DownArrow />
         </button>
         <input
-          type={"text"}
-          placeholder={"What needs to be done?"}
+          type={'text'}
+          placeholder={'What needs to be done?'}
           value={taskInput}
           onChange={(event) => entryTask(event)}
           onKeyDown={(event) => createTask(event.key)}
@@ -75,34 +70,25 @@ const Todos: FC = () => {
       </div>
       <div className={clsx(Styles.tasks)}>
         {!isHidden &&
-          filteredTasks?.map((task) => (
-            <Task key={task.id} data={task} changeTask={changeTask} />
-          ))}
+          filteredTasks?.map((task) => <Task key={task.id} data={task} changeTask={changeTask} />)}
       </div>
       <div className={Styles.controlPanel}>
-        <p>{`${countActiveTasks?.length} items left`}</p>
+        <p>{`${activeTasks} items left`}</p>
         <div className={Styles.filter}>
+          <TaskActionButton type={'all'} isActive={'all' === activeButton} onClick={onClick} />
           <TaskActionButton
-            type={"all"}
-            isActive={"all" === activeButton}
+            type={'active'}
+            isActive={'active' === activeButton}
             onClick={onClick}
           />
           <TaskActionButton
-            type={"active"}
-            isActive={"active" === activeButton}
-            onClick={onClick}
-          />
-          <TaskActionButton
-            type={"completed"}
-            isActive={"completed" === activeButton}
+            type={'completed'}
+            isActive={'completed' === activeButton}
             onClick={onClick}
           />
         </div>
         <div>
-          <TaskActionButton
-            type={"clearCompleted"}
-            clearCompleted={clearCompleted}
-          />
+          <TaskActionButton type={'clearCompleted'} clearCompleted={clearCompleted} />
         </div>
       </div>
     </div>

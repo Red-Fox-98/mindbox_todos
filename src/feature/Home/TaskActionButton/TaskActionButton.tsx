@@ -1,8 +1,8 @@
-import Button from "src/shared/uiKit/Button/Button";
-import { useTranslation } from "react-i18next";
-import { FC } from "react";
+import Button from 'src/shared/uiKit/Button/Button';
+import { useTranslation } from 'react-i18next';
+import { FC } from 'react';
 
-export type ButtonType = "all" | "active" | "completed" | "clearCompleted";
+export type ButtonType = 'all' | 'active' | 'completed' | 'clearCompleted';
 
 interface TaskActionButtonProps {
   type: ButtonType;

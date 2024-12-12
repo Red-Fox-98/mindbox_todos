@@ -1,6 +1,6 @@
-import { FC } from "react";
-import Styles from "./Task.module.scss";
-import clsx from "clsx";
+import { FC } from 'react';
+import Styles from './Task.module.scss';
+import clsx from 'clsx';
 
 export interface ITask {
   id: number;
@@ -14,23 +14,20 @@ export interface TodoProps {
 }
 
 const Task: FC<TodoProps> = ({ data, changeTask }) => {
-  const handleChange = <TKey extends keyof ITask>(
-    key: TKey,
-    newData: ITask[TKey],
-  ): void => {
+  const handleChange = <TKey extends keyof ITask>(key: TKey, newData: ITask[TKey]): void => {
     changeTask({ ...data, [key]: newData });
   };
   return (
     <div className={clsx(Styles.task, data.isDone && Styles.checked)}>
       <input
-        type={"checkbox"}
+        type={'checkbox'}
         checked={data.isDone}
-        onChange={(e) => handleChange("isDone", e.currentTarget.checked)}
+        onChange={(e) => handleChange('isDone', e.currentTarget.checked)}
       />
       <input
-        type={"text"}
+        type={'text'}
         value={data.name}
-        onChange={(e) => handleChange("name", e.currentTarget.value)}
+        onChange={(e) => handleChange('name', e.currentTarget.value)}
       />
     </div>
   );

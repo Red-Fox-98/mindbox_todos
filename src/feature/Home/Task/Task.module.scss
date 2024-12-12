@@ -8,7 +8,7 @@
   border: 1px #eeeeee solid;
   background-color: #ffffff;
 
-  input[type="text"] {
+  input[type='text'] {
     height: 100%;
     width: 85%;
     border: none;
@@ -19,7 +19,7 @@
     font-size: 20px;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     width: 25px;
     height: 25px;
     margin: 0;
@@ -29,16 +29,16 @@
     border-radius: 100%;
   }
 
-  input[type="checkbox"]:checked {
+  input[type='checkbox']:checked {
     background-repeat: no-repeat;
-    background-image: url("../../../shared/uiKit/icons/Checked.svg");
+    background-image: url('../../shared/uiKit/icons/Checked.svg');
     background-position: center center;
     border: 1px solid #77c0af;
   }
 }
 
 .checked {
-  input[type="text"] {
+  input[type='text'] {
     color: #ececec;
     text-decoration: line-through;
   }
